@@ -1,0 +1,51 @@
+{
+  "name": "claw-sdk",
+  "version": "1.0.0",
+  "description": "A toolkit for developing and integrating OpenClaw AI agents into your projects",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "openclaw",
+    "ai",
+    "agent",
+    "sdk",
+    "automation",
+    "ai-agent",
+    "machine-learning",
+    "llm"
+  ],
+  "author": "ClawSDK",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawsdk/Claw-SDK.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clawsdk/Claw-SDK/issues"
+  },
+  "homepage": "https://github.com/clawsdk/Claw-SDK#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.1",
+    "typescript": "^5.9.3"
+  }
+}
