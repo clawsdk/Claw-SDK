@@ -33,8 +33,51 @@ const response = await client.agents.chat(agent.id, {
 console.log(response.message.content);
 ```
 
+## Memecoin Trading with AI
+
+Claw SDK includes a built-in **AI-powered memecoin trading agent**. The Claw agent analyzes on-chain data, social signals, and market trends to identify and execute memecoin trades autonomously.
+
+```typescript
+import { ClawClient } from 'claw-sdk';
+
+const client = new ClawClient({ apiKey: 'your-api-key' });
+
+// Create a memecoin trading agent
+const trader = await client.agents.create({
+  name: 'Memecoin Trader',
+  model: 'openclaw-1',
+  instructions: 'Analyze memecoin markets and execute profitable trades.',
+  tools: [
+    { name: 'market_scanner', type: 'function', description: 'Scan DEX for new memecoin launches', parameters: {} },
+    { name: 'sentiment_analyzer', type: 'function', description: 'Analyze social media sentiment', parameters: {} },
+    { name: 'trade_executor', type: 'function', description: 'Execute buy/sell orders on DEX', parameters: {} },
+  ],
+});
+
+// Start the trading agent
+await client.agents.start(trader.id);
+
+// Monitor trades via streaming
+await client.streaming.streamChat(trader.id,
+  { message: 'Start scanning for high-potential memecoins' },
+  {
+    onMessage: (event) => console.log('Trade signal:', event.data),
+  }
+);
+```
+
+### Trading Features
+
+- **On-chain analysis** — Real-time monitoring of DEX liquidity, holder distribution, and token metrics
+- **Social sentiment** — AI-driven analysis of Twitter, Telegram, and Discord for early memecoin signals
+- **Auto-trading** — Autonomous buy/sell execution with configurable risk parameters
+- **Risk management** — Built-in stop-loss, take-profit, and position sizing
+- **Multi-DEX support** — Trade across Raydium, Jupiter, Uniswap, and more
+- **Portfolio tracking** — Real-time P&L tracking and performance analytics
+
 ## Features
 
+- **AI Memecoin Trading** — Autonomous memecoin trading powered by the Claw AI agent
 - **Autonomous AI agents** — Create intelligent agents that can perform tasks without human intervention
 - **Agent Management** — Create, configure, start, stop, and manage AI agents
 - **Task Automation** — Schedule and run automated tasks with priority queues
