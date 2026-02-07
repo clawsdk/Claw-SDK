@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/clawsdk/Claw-SDK/main/assets/bannermoltsdk.png" alt="Claw SDK Banner" width="100%" />
+  <img src="https://raw.githubusercontent.com/clawsdk/Claw-SDK/main/assets/bannerclawsdk.jpg" alt="Claw SDK Banner" width="100%" />
 </p>
 
 # Claw SDK
