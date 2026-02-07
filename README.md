@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/bannermoltsdk.png" alt="Claw SDK Banner" width="100%" />
+</p>
+
 # Claw SDK
 
 [![npm version](https://img.shields.io/npm/v/claw-sdk.svg)](https://www.npmjs.com/package/claw-sdk)
