@@ -1,6 +1,13 @@
 # Claw SDK
 
+[![npm version](https://img.shields.io/npm/v/claw-sdk.svg)](https://www.npmjs.com/package/claw-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/claw-sdk.svg)](https://www.npmjs.com/package/claw-sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+
 A toolkit for developing and integrating OpenClaw AI agents into your projects. Build powerful, autonomous digital agents to automate tasks, manage data, and interact with other systems.
+
+**[npm package](https://www.npmjs.com/package/claw-sdk)** | **[Documentation](https://docs.openclaw.ai)** | **[OpenClaw AI](https://openclaw.ai)**
 
 ## Installation
 
