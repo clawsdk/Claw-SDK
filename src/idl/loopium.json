@@ -1,0 +1,200 @@
+{
+  "version": "0.1.0",
+  "name": "loopium",
+  "instructions": [
+    {
+      "name": "initialize_vault",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "asset_mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "vault",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              { "kind": "const", "value": [118, 97, 117, 108, 116] },
+              { "kind": "account", "path": "owner" },
+              { "kind": "account", "path": "asset_mint" }
+            ]
+          }
+        },
+        {
+          "name": "risk_config",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              { "kind": "const", "value": [114, 105, 115, 107] },
+              { "kind": "account", "path": "vault" }
+            ]
+          }
+        },
+        {
+          "name": "execution_config",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              { "kind": "const", "value": [101, 120, 101, 99] },
+              { "kind": "account", "path": "vault" }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        { "name": "max_oracle_deviation_bps", "type": "u16" },
+        { "name": "max_volatility_bps", "type": "u16" },
+        { "name": "max_slippage_bps", "type": "u16" }
+      ]
+    },
+    {
+      "name": "deposit",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "asset_mint", "isMut": false, "isSigner": false },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "owner_token_account", "isMut": true, "isSigner": false },
+        { "name": "vault_token_account", "isMut": true, "isSigner": false },
+        { "name": "token_program", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "withdraw",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "asset_mint", "isMut": false, "isSigner": false },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "owner_token_account", "isMut": true, "isSigner": false },
+        { "name": "vault_token_account", "isMut": true, "isSigner": false },
+        { "name": "token_program", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "execute_loop",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "loop_state", "isMut": true, "isSigner": false,
+          "pda": {
+            "seeds": [
+              { "kind": "const", "value": [108, 111, 111, 112] },
+              { "kind": "account", "path": "vault" }
+            ]
+          }
+        },
+        { "name": "risk_config", "isMut": false, "isSigner": false },
+        { "name": "execution_config", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "min_out_amount", "type": "u64" }]
+    },
+    {
+      "name": "rebalance",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "loop_state", "isMut": true, "isSigner": false },
+        { "name": "risk_config", "isMut": false, "isSigner": false },
+        { "name": "execution_config", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "target_ratio_bps", "type": "u16" }]
+    },
+    {
+      "name": "unwind",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "loop_state", "isMut": true, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_vault",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault", "isMut": true, "isSigner": false },
+        { "name": "risk_config", "isMut": true, "isSigner": false },
+        { "name": "execution_config", "isMut": true, "isSigner": false },
+        { "name": "loop_state", "isMut": true, "isSigner": false },
+        { "name": "system_program", "isMut": false, "isSigner": false }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "VaultAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "owner", "type": "publicKey" },
+          { "name": "assetMint", "type": "publicKey" },
+          { "name": "state", "type": "u8" },
+          { "name": "bump", "type": "u8" },
+          { "name": "createdAtSlot", "type": "u64" },
+          { "name": "updatedAtSlot", "type": "u64" }
+        ]
+      }
+    },
+    {
+      "name": "LoopStateAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "vault", "type": "publicKey" },
+          { "name": "iteration", "type": "u64" },
+          { "name": "lastExecutionSlot", "type": "u64" },
+          { "name": "state", "type": "u8" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "RiskConfigAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "vault", "type": "publicKey" },
+          { "name": "maxOracleDeviationBps", "type": "u16" },
+          { "name": "maxVolatilityBps", "type": "u16" },
+          { "name": "circuitBreakerEnabled", "type": "bool" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "ExecutionConfigAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "vault", "type": "publicKey" },
+          { "name": "maxSlippageBps", "type": "u16" },
+          { "name": "computeUnitLimit", "type": "u32" },
+          { "name": "computeUnitPriceMicroLamports", "type": "u64" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    { "code": 6000, "name": "InvalidVaultState", "msg": "Invalid vault state" },
+    { "code": 6001, "name": "RiskThresholdExceeded", "msg": "Risk threshold exceeded" },
+    { "code": 6002, "name": "OracleDeviation", "msg": "Oracle deviation exceeded" },
+    { "code": 6003, "name": "ExecutionFailure", "msg": "Execution failure" }
+  ]
+}

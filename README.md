@@ -35,11 +35,13 @@ console.log(response.message.content);
 
 ## Features
 
+- **Autonomous AI agents** — Create intelligent agents that can perform tasks without human intervention
 - **Agent Management** — Create, configure, start, stop, and manage AI agents
 - **Task Automation** — Schedule and run automated tasks with priority queues
 - **Data Management** — Key-value stores for agent memory and application data
 - **Streaming** — Real-time Server-Sent Events for live agent responses
 - **Webhooks** — Event-driven notifications for agent activity
+- **Integration with messengers** — Works with popular messengers such as Telegram, Slack, Discord, and more
 - **TypeScript** — Full type safety with comprehensive type definitions
 - **Error Handling** — Typed errors with automatic retries and rate limiting
 - **Lightweight** — Zero dependencies, uses native `fetch`
@@ -176,6 +178,11 @@ try {
   }
 }
 ```
+
+## Documentation
+
+- **OpenClaw AI**: [https://openclaw.ai](https://openclaw.ai)
+- **API Documentation**: [https://docs.openclaw.ai](https://docs.openclaw.ai)
 
 ## Requirements
 
